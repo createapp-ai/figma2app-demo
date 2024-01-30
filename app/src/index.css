@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  @apply leading-[normal] m-0;
+}
+*,
+::before,
+::after {
+  border-width: 0;
+}
+
+@font-face {
+  font-family: AirbnbCereal_W_Bd;
+  src: url('./fonts/AirbnbCereal_W_Bd.otf') format('opentype');
+}
+
+@font-face {
+  font-family: AirbnbCereal_W_Bk;
+  src: url('./fonts/AirbnbCereal_W_Bk.otf') format('opentype');
+}

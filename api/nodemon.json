@@ -1,0 +1,8 @@
+{
+    "watch": [
+        "prisma/schema.prisma",
+        "prisma/seed.ts"
+    ],
+    "ext": "prisma,ts",
+    "exec": "npm run prisma:force-seed && npm run prisma:studio"
+}

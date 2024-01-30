@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: backend (figma2app demo)
+    region: frankfurt
+    env: node
+    rootDir: api
+    buildCommand: pnpm install --production=false && pnpm build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  # Vite (React) Frontend Configuration
+  - type: web
+    name: frontend (figma2app demo)
+    runtime: static
+    rootDir: app
+    buildCommand: pnpm build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_ENV
+        value: production
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /

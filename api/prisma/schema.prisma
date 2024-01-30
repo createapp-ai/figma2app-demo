@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  authId     String    @unique // DO NOT EDIT THIS PROPERTY
+  email      String    @unique
+  name       String
+  avatarUrl  String?
+  tickets    Ticket[]
+  Event      Event[]
+  location   Location? @relation(fields: [locationId], references: [id])
+  locationId String?
+}
+
+model Event {
+  id           String    @id @default(uuid())
+  title        String
+  description  String
+  date         DateTime
+  beginTime    DateTime
+  endTime      DateTime
+  address      String
+  thumbnailUrl String
+  price        Float
+  organizerId  String
+  organizer    User      @relation(fields: [organizerId], references: [id])
+  tickets      Ticket[]
+  location     Location? @relation(fields: [locationId], references: [id])
+  locationId   String?
+}
+
+model Ticket {
+  id        String   @id @default(uuid())
+  userId    String
+  eventId   String
+  user      User     @relation(fields: [userId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Location {
+  id     String  @id @default(uuid())
+  state  String
+  events Event[]
+  users  User[]
+}
